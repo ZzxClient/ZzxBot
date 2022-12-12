@@ -11,9 +11,8 @@ wlc = on_notice()
 module_id = "autowlc"
 
 def get_wlc_message(group: str, uid: str):
-    cq_uid = "[CQ:at,qq={}] ".format(uid)
     if group in get_module_settings(module_id)["groups"]:
-        return cq_uid + get_module_settings(module_id)["groups"][group]
+        return get_module_settings(module_id)["groups"][group]
     return None
 
 @wlc.handle()
