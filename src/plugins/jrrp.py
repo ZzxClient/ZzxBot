@@ -11,7 +11,7 @@ import json
 
 import random
 
-from zzxbot import ZZX_TEMP
+from zzxbot import ZZX_TEMP, get_module_state
 
 jrrp_cmd = on_startswith("jrrp")
 
@@ -45,5 +45,7 @@ def parser_args(msg: str, user_id: str):
 
 @jrrp_cmd.handle()
 async def handle_jrrp(bot: Bot, event: Event, state: T_State):
+    if not get_module_state("jrrp"):
+        return
     msg = parser_args(event.get_plaintext(), event.get_user_id())
     await jrrp_cmd.send(Message(msg))

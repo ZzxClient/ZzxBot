@@ -31,16 +31,57 @@ def get_module_state(module: str):
         if "state" not in config[module]:
             set_module_state(module, True)
         return config[module]["state"]
+    else:
+        init_module(module)
+        return True
+
+def init_module(module: str):
+    """初始化模块"""
+    with open(ZZX_CONFIG, "r") as f:
+        config = json.load(f)
+    config[module] = {"state": True}
+    with open(ZZX_CONFIG, "w") as f:
+        json.dump(config, f)
 
 def set_module_state(module: str, state: bool):
     """设置组件状态"""
-    with open(ZZX_CONFIG, "r") as f:
-        config = json.load(f)
+    config = load_config()
     if module not in config:
         module_info = {"state": True}
         config[module] = module_info
     else:
         module_info = config[module]
-        module_info["state"] = True
+        module_info["state"] = state
     config[module] = module_info
+    save_config(config)
+
+def save_config(config: dict):
+    with open(ZZX_CONFIG, "w") as f:
+        json.dump(config, f)
+
+def load_config() -> dict:
+    with open(ZZX_CONFIG, "r") as f:
+        config = json.load(f)
+    return config
 # def end
+
+# Exception start
+class BotModuleError(Exception):
+    """模块错误"""
+    message: message = ""
+
+    def __init__(self, *args):
+        self.message = "\n".join(args)
+
+class BotModuleNotFoundError(BotModuleError):
+    """无法找到模块错误"""
+    pass
+
+class BotModuleValueError(BotModuleError):
+    """模块参数错误"""
+    pass
+
+class BotArgError(BotModuleError):
+    """参数错误"""
+    pass
+# Exception end

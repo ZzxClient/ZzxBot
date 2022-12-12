@@ -5,6 +5,8 @@ from nonebot.adapters.onebot.v11 import Message
 
 import os
 
+from zzxbot import get_module_state
+
 zzx_cmd = on_startswith("/zzx")
 
 # config_file = os.path.join
@@ -18,5 +20,7 @@ def parser_args(args: str):
 
 @zzx_cmd.handle()
 async def handle_zzx(bot: Bot, event: Event, state: T_State):
+    if not get_module_state("zzx"):
+        return
     msg = parser_args(event.get_plaintext())
-    await zzx_cmd.send(Message(msg))
+    await zzx_cmd.send(msg)

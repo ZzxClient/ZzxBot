@@ -5,6 +5,8 @@ from nonebot.adapters.onebot.v11 import Message
 
 import requests
 
+from zzxbot import get_module_state
+
 lunarcn_ban_cmd = on_startswith("/lunarcnban")
 
 ban_url = "https://chenmy1903.github.io/LunarClient-CN/blacklist"
@@ -32,5 +34,7 @@ def get_banlist():
 
 @lunarcn_ban_cmd.handle()
 async def handle_lunarcn_ban(bot: Bot, event: Event, state: T_State):
+    if not get_module_state("lunarcn_ban"):
+        return
     ban_list = get_banlist()
     await lunarcn_ban_cmd.send(ban_list)
