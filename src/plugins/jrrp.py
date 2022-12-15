@@ -21,27 +21,37 @@ if not os.path.isfile(jrrp_file):
     with open(jrrp_file, "w") as f:
         f.write("{}")
 
+
 def load_jrrp():
     """Load jrrp from file"""
     with open(jrrp_file) as f:
         return json.load(f)
+
 
 def save_jrrp(jrrp_data):
     """Dump jrrp to the file"""
     with open(jrrp_file, "w") as f:
         json.dump(jrrp_data, f)
 
+
 def parser_args(msg: str, user_id: str):
     jrrp = load_jrrp()
     format_date = f"{datetime.now().year}, {datetime.now().month}, {datetime.now().day}"
-    if user_id in jrrp and format_date == jrrp[user_id]["usetime"]:
-        return f"[CQ:at,qq={user_id}] 你已经获取过人品值了!\n你的人品值是: {jrrp[user_id]['luck']}\n*仅供娱乐"
+    coins = 0
+    if user_id in jrrp:
+        if "coins" in jrrp[user_id]:
+            coins = jrrp[user_id]["coins"]
+        if format_date == jrrp[user_id]["usetime"]:
+            return f"[CQ:at,qq={user_id}] 你已经获取过人品值了!\n你的人品值是: {jrrp[user_id]['luck']}\n*仅供娱乐"
     luck = random.randint(0, 100)
-    temp_msg = "[CQ:at,qq={uid}] 你的人品值是: {luck}\n*仅供娱乐"
-    msg = temp_msg.format(uid = user_id, luck = luck)
-    jrrp[user_id] = {"luck": luck, "usetime": format_date}
+    temp_msg = "[CQ:at,qq={uid}] 你的人品值是: {luck}\n获得了{coins}个硬币\n*仅供娱乐"
+    add_coin = random.randint(10, 400)
+    coins += add_coin
+    msg = temp_msg.format(uid=user_id, luck=luck, coins=add_coin)
+    jrrp[user_id] = {"luck": luck, "usetime": format_date, "coins": coins}
     save_jrrp(jrrp)
     return msg
+
 
 @jrrp_cmd.handle()
 async def handle_jrrp(bot: Bot, event: Event, state: T_State):

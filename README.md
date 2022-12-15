@@ -28,9 +28,12 @@ nb run
 6. `/toggle <ModuleId>` | 切换模块状态 (无ModuleId)
 7. 戳一戳 (ModuleId: poke)
 8. 自动`呵呵` (ModuleId: autohh)
+9. `/acc` | 小号机 (ModuleId: freeacc)
 
 ## 配置文件
 
 每日人品 -> `./zzxtemp/jrrp.json`
 
 Bot设置 -> `./zzx_config/config.json`
+
+小号机小号 -> `./zzxtemp/accounts.txt`

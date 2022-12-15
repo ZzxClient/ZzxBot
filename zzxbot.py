@@ -10,10 +10,10 @@ ZZX_TEMP = os.path.join(BASE_DIR, "zzxtemp")
 ZZX_CONFIG = os.path.join(BASE_DIR, "zzx_config", "config.json")
 
 ADMIN_LIST = ["674764353", "2834886052", "120721645", "2394439039",
-              "2214646206", "691365317", "2932749515", "3454176276", "3562992533"]
+              "2214646206", "691365317", "2932749515", "3454176276", "3562992533", "1722541989"]
 
 
-API_TOKEN = "13742eba-eb71-4e60-be55-7ce6e4eb1382"
+API_TOKEN = "hypixel token here"
 
 # init start
 if not os.path.isdir(ZZX_TEMP):

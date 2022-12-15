@@ -6,7 +6,7 @@ from nonebot.adapters.onebot.v11 import Message
 
 import os
 
-import zzxbot
+import zzxbot as zzxbot
 
 from zzxbot import ADMIN_LIST, ZZX_TEMP, get_module_state
 from .jrrp import load_jrrp, save_jrrp
@@ -19,7 +19,7 @@ def parser_args(args: str, uid: str):
     elif args[1] == "help":
         return "/zzx - 获取Bot信息\n| /zzx info获得乐子信息集合\n| /zzx jrrp <uid> <value>修改某人的jrrp数据 (需要管理权限)"
     elif args[1] == "info":
-        return "张子曦: 呵呵\nMore info -> github (.) com / chenmy1903 / LunarClient-CN / wiki / 乐子"
+        return "More info -> github (.) com / chenmy1903 / LunarClient-CN / wiki / 乐子"
     elif args[1] == "jrrp":
         if len(args) != 4:
             return "[Zzx Admin] 使用方法错误!\n正确方法: /zzx jrrp <uid> <value>"
