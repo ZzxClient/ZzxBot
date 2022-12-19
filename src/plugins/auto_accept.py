@@ -4,11 +4,14 @@ from nonebot.adapters.cqhttp import Bot
 
 import bilibili_api as bili
 
+import nest_asyncio
+
 import json
 from .auto_welcome import get_black_list
 
 from zzxbot import get_module_settings, get_module_state, set_module_settings
 
+nest_asyncio.apply()
 
 module_id = "autoaccept"
 
@@ -24,9 +27,9 @@ def get_accept_type(group):
 
 def bili_check(message: str, group: str):
     u = bili.user.User(get_module_settings(module_id)["groups"][group]["bili_id"])
-    fans = u.get_followers()
-    for fan in fans:
-        if fan in message:
+    fans = bili.sync(u.get_followers())
+    for fan in fans["list"]:
+        if str(fan['mid']) in message:
             return True
 
 @request.handle()
@@ -50,12 +53,12 @@ async def on_handle(bot: Bot, event: GroupRequestEvent):
             flag=flag,
             sub_type=sub_type,
             approve=False,
-            reason="退群了就不要再进来了[2834886052申诉]"
+            reason="退群了就不要再进来了L"
         )
     if accept_type == "bili_check":
         await bot.set_group_add_request(
             flag=flag,
             sub_type=sub_type,
             approve=bili_check(comment, group),
-            reason="你没有关注(这个是机器审核,请只填写你的bili_uid,否则请取关重新关注再试)"
+            reason="你没有关注[Bot]"
         )
