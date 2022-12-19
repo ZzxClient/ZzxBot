@@ -62,3 +62,10 @@ async def on_handle(bot: Bot, event: GroupRequestEvent):
             approve=bili_check(comment, group),
             reason="你没有关注[Bot]"
         )
+    elif accept_type == "reject":
+        await bot.set_group_add_request(
+            flag=flag,
+            sub_type=sub_type,
+            approve=False,
+            reason=get_module_settings(module_id)["groups"][group]["message"]
+        )
