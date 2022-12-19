@@ -1,6 +1,6 @@
 # Zzx bot
 
-我们张子曦大蛇的Bot太厉害了!
+我们大蛇的Bot太厉害了!
 
 ## 部署方法
 
@@ -36,4 +36,4 @@ nb run
 
 Bot设置 -> `./zzx_config/config.json`
 
-小号机小号 -> `./zzxtemp/accounts.txt`
+小号机小号(一行一个) -> `./zzxtemp/accounts.txt`
