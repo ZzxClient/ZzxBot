@@ -36,8 +36,6 @@ def bili_check(message: str, group: str):
 async def on_handle(bot: Bot, event: GroupRequestEvent):
     if not get_module_state(module_id):
         return
-    if "groups" not in get_module_settings(module_id):
-        set_module_settings(module_id, {"state": True, "groups": {}})
     group = str(event.group_id)
     user = event.get_user_id()
     accept_type = get_accept_type(group)
@@ -55,6 +53,8 @@ async def on_handle(bot: Bot, event: GroupRequestEvent):
             approve=False,
             reason="退群了就不要再进来了L"
         )
+    if "groups" not in get_module_settings(module_id):
+        set_module_settings(module_id, {"state": True, "groups": {}})
     if accept_type == "bili_check":
         await bot.set_group_add_request(
             flag=flag,
@@ -68,4 +68,11 @@ async def on_handle(bot: Bot, event: GroupRequestEvent):
             sub_type=sub_type,
             approve=False,
             reason=get_module_settings(module_id)["groups"][group]["message"]
+        )
+    elif accept_type == "accept":
+        await bot.set_group_add_request(
+            flag=flag,
+            sub_type=sub_type,
+            approve=True,
+            reason="accepted"
         )

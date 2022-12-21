@@ -24,7 +24,8 @@ def get_black_list() -> list:
 def add_black_list(uid: str):
     config = get_module_settings(module_id)
     bl: list = config["black_list"]
-    bl.append(uid)
+    if uid not in get_black_list():
+        bl.append(uid)
     config["black_list"] = bl
     set_module_settings(module_id, config)
 
