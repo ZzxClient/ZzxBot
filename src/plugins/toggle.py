@@ -19,7 +19,7 @@ def parser_cmd(arg: list):
         module = arg[1]
         if module not in load_config():
             return None, BotModuleNotFoundError("Module {} not found".format(module))
-        if "state" not in load_config()["module"]:
+        if "state" not in load_config()[module]:
             return None, BotArgError("模块{}确实存在, 但是它无法被关闭.".format(module))
         state = get_module_state(module)
         set_module_state(module, (not state))

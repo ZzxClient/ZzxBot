@@ -63,3 +63,7 @@ Bot设置 -> `./zzx_config/config.json`
 #### bili_check
 
 自动检测bilibili关注模式, bili_id为受关注者的uid (int形式)
+
+#### accept
+
+自动接收请求
